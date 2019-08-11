@@ -20,7 +20,7 @@ export default {
       navigator.geolocation.getCurrentPosition(function (position) {
         location_lon = position.coords.longitude;
         location_lat = position.coords.latitude;
-        // alert('h5经度：'+location_lon);alert('h5纬度：'+location_lat);
+         alert('h5经度：'+location_lon);alert('h5纬度：'+location_lat);
         commit(CHANGE_LOCATION, {location_lat, location_lon})
       });
     }else {
@@ -28,7 +28,6 @@ export default {
     }
   },
   async getAddress({commit, state}) {
-
     //发送ajax
     const geohash = state.latitude + ',' + state.longitude;
     const result = await reqAddress(geohash);
@@ -44,8 +43,8 @@ export default {
     const result = await reqFoodType(geohash);
     //提交mutations
     if (result.code === 0) {
-      const footTypeList = result.data;
-      commit(REQ_FOOD_TYPE, {footTypeList})
+      const foodTypeList = result.data;
+      commit(REQ_FOOD_TYPE, {foodTypeList})
     }
   },
   async getShopList({commit, state}) {

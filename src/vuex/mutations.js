@@ -18,8 +18,8 @@ export default {
   [REQ_ADDRESS](state, {address}) {
     state.address = address;
   },
-  [REQ_FOOD_TYPE](state, {footTypeList}) {
-    state.foodTypeList = footTypeList;
+  [REQ_FOOD_TYPE](state, {foodTypeList}) {
+    state.foodTypeList = foodTypeList;
   },
   [REQ_SHOP_LIST](state, {shopList}) {
     state.shopList = shopList;
