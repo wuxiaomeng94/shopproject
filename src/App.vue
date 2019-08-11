@@ -7,9 +7,17 @@
 </template>
 
 <script>
+  import {reqFoodType, httpRequest} from './api'
   import Footer from './components/Footer/Footer'
 export default {
   name: 'App',
+  async mounted() {
+    const result = await reqFoodType();
+    console.log(result);
+
+    //后台配置了跨域的访问接口地址的例子
+    //const advice = await httpRequest(`/adviceMobile/queryAdviceDealList`, {adviceId:`e9985aaeff744eb7bab7d4283026fdbb`});
+  },
   components: {
     Footer
   }
