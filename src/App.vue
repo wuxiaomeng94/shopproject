@@ -7,12 +7,18 @@
 </template>
 
 <script>
+  import {mapActions} from 'vuex'
   import Footer from './components/Footer/Footer'
 export default {
   name: 'App',
+  methods: {
+    ...mapActions(['changeLocation','getAddress','getUserInfo'])
+  },
   async mounted() {
-    await this.$store.dispatch('changeLocation');
-    await this.$store.dispatch('getAddress');
+    /*await this.$store.dispatch('changeLocation');
+    await this.$store.dispatch('getAddress');*/
+    this.getAddress();
+    this.getUserInfo();
     //后台配置了跨域的访问接口地址的例子
     //const advice = await httpRequest(`/adviceMobile/queryAdviceDealList`, {adviceId:`e9985aaeff744eb7bab7d4283026fdbb`});
   },

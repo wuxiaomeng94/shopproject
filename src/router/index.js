@@ -6,6 +6,7 @@ import Search from '@/pages/Search/Search'
 import Person from '@/pages/Person/Person'
 import Order from '@/pages/Order/Order'
 import Login from '@/pages/Login/Login'
+import UserInfo from '@/pages/UserInfo/UserInfo'
 
 Vue.use(Router)
 
@@ -51,6 +52,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/userInfo',
+      name: 'UserInfo',
+      component: UserInfo
     }
   ]
 })

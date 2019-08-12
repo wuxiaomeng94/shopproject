@@ -20,7 +20,7 @@ export default function ajax(url, param={}, type='GET') {
     } else {
       let postParams = new URLSearchParams();
       for(let obj in param) {
-        params.append(obj, param[obj]);
+        postParams.append(obj, param[obj]);
       }
       promise = axios.post(url, postParams);
     }

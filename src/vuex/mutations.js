@@ -5,7 +5,9 @@ import {
   REQ_ADDRESS,
   REQ_FOOD_TYPE,
   REQ_SHOP_LIST,
-  CHANGE_LOCATION
+  CHANGE_LOCATION,
+  REQ_USER_INFO,
+  REQ_RESET_USER_INFO
 } from './mutations-type'
 
 export default {
@@ -23,5 +25,11 @@ export default {
   },
   [REQ_SHOP_LIST](state, {shopList}) {
     state.shopList = shopList;
+  },
+  [REQ_USER_INFO](state, {user}) {
+    state.user = user;
+  },
+  [REQ_RESET_USER_INFO](state) {
+    state.user = {};
   }
 }

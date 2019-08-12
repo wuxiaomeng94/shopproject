@@ -5,13 +5,16 @@
       <!--首页头部-->
 
       <HeaderTop :title="address.name">
-        <span class="header_search" slot="search">
+        <router-link class="header_search" slot="search" to="/search">
           <i class="iconfont icon-sousuo"></i>
-        </span>
+        </router-link>
 
-        <span class="header_login" slot="login">
-          <span class="header_login_text">登录|注册</span>
-        </span>
+        <router-link class="header_login" slot="login" :to="user._id ? '/userInfo' : '/login'">
+          <span class="header_login_text" v-if="!user._id">登录|注册</span>
+          <span class="header_login_text" v-else>
+            <i class="iconfont icon-person" ></i>
+          </span>
+        </router-link>
       </HeaderTop>
       <!--首页导航-->
       <nav class="msite_nav">
@@ -65,7 +68,7 @@
       this.$store.dispatch('getShopList');
     },
     computed: {
-      ...mapState(['address','foodTypeList']),
+      ...mapState(['address','foodTypeList','user']),
       foodTypeArr() {
         //由footTypeList得到二维数组的食品列表作为轮播滑块
         const footTypeList = this.foodTypeList;
