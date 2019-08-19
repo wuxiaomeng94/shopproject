@@ -13,3 +13,19 @@ export const REQ_SHOP_LIST = `REQ_SHOP_LIST`;
 export const REQ_USER_INFO = `REQ_USER_INFO`;
 //退出登录，将user信息置空
 export const REQ_RESET_USER_INFO = `REQ_RESET_USER_INFO`;
+
+
+export const REQ_GOODS = `REQ_GOODS`;
+
+export const REQ_RATINGS = `REQ_RATINGS`;
+
+export const REQ_SHOP_INFO = `REQ_SHOP_INFO`;
+
+//增加购买数量和减少购买数量写两个mutation。好像没这个必要
+export const REQ_ADD_FOODCOUNT = `REQ_ADD_FOODCOUNT`;
+export const REQ_REDUCE_FOODCOUNT = `REQ_REDUCE_FOODCOUNT`;
+
+export const REQ_UPDATE_FOODCOUNT = `REQ_UPDATE_FOODCOUNT`;
+
+export const REQ_CLEARCAR = `REQ_CLEARCAR`;
+

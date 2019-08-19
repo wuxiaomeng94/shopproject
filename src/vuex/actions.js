@@ -4,14 +4,24 @@ import {
   REQ_SHOP_LIST,
   CHANGE_LOCATION,
   REQ_USER_INFO,
-  REQ_RESET_USER_INFO
+  REQ_RESET_USER_INFO,
+  REQ_GOODS,
+  REQ_RATINGS,
+  REQ_SHOP_INFO,
+  REQ_UPDATE_FOODCOUNT,
+  REQ_ADD_FOODCOUNT,
+  REQ_REDUCE_FOODCOUNT,
+  REQ_CLEARCAR
 } from './mutations-type'
 import {
   reqAddress,
   reqFoodType,
   reqShopList,
   reqUserInfo,
-  reqLogout
+  reqLogout,
+  reqShopInfo,
+  reqShopRatings,
+  reqShopGoods
 } from '../api'
 /**
  *传递来请求调用mutations的多个方法的对象
@@ -78,6 +88,38 @@ export default {
       //commit(REQ_USER_INFO, {})
       commit(REQ_RESET_USER_INFO);
     }
+  },
+  async getShopInfo({commit}) {
+    const result = await reqShopInfo();
+    if (result.code == 0) {
+      commit(REQ_SHOP_INFO, {shopInfo: result.data})
+    }
+  },
+  async getShopRatings({commit}) {
+    const result = await reqShopRatings();
+    if (result.code == 0) {
+      commit(REQ_RATINGS, {ratings: result.data})
+    }
+  },
+  async getShopGoods({commit}, callback) {
+    const result = await reqShopGoods();
+    if (result.code == 0) {
+      commit(REQ_GOODS, {goods: result.data});
+      //数据更新了。通知组件做接下来的事情 //数据更新之后执行
+      callback && callback()
+    }
+  },
+  updateFoodCount({commit}, {food, isAdd}) {
+    //同步更新food的对应购买数量
+    commit(REQ_UPDATE_FOODCOUNT, {food, isAdd})
+    /*if (isAdd) {
+      commit(REQ_ADD_FOODCOUNT, {food})
+    } else {
+      commit(REQ_REDUCE_FOODCOUNT, {food})
+    }*/
+  },
+  clearCar({commit}) {
+    commit(REQ_CLEARCAR)
   }
 
 }
