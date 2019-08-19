@@ -14,7 +14,6 @@ export const REQ_USER_INFO = `REQ_USER_INFO`;
 //退出登录，将user信息置空
 export const REQ_RESET_USER_INFO = `REQ_RESET_USER_INFO`;
 
-
 export const REQ_GOODS = `REQ_GOODS`;
 
 export const REQ_RATINGS = `REQ_RATINGS`;
@@ -28,4 +27,6 @@ export const REQ_REDUCE_FOODCOUNT = `REQ_REDUCE_FOODCOUNT`;
 export const REQ_UPDATE_FOODCOUNT = `REQ_UPDATE_FOODCOUNT`;
 
 export const REQ_CLEARCAR = `REQ_CLEARCAR`;
+
+export const REQ_SEARCH_SHOPLIST = `REQ_SEARCH_SHOPLIST`;
 

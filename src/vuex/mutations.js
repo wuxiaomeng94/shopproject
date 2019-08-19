@@ -15,7 +15,8 @@ import {
   REQ_UPDATE_FOODCOUNT,
   REQ_ADD_FOODCOUNT,
   REQ_REDUCE_FOODCOUNT,
-  REQ_CLEARCAR
+  REQ_CLEARCAR,
+  REQ_SEARCH_SHOPLIST
 } from './mutations-type'
 
 
@@ -93,5 +94,8 @@ export default {
       food.count = 0;
     });
     state.cartFoods = [];
+  },
+  [REQ_SEARCH_SHOPLIST](state, {searchShopList}) {
+    state.searchShopList = searchShopList;
   }
 }

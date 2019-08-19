@@ -9,5 +9,6 @@ export default {
   goods: [],
   ratings: [],
   shopInfo: {},
-  cartFoods: []
+  cartFoods: [],
+  searchShopList: []
 }

@@ -24,52 +24,33 @@
       <div class="split"></div>
       <div class="ratingselect">
         <div class="rating-type border-1px">
-          <span class="block positive active"> 全部<span class="count">30</span> </span>
-          <span class="block positive"> 满意<span class="count">28</span> </span>
-          <span class="block negative"> 不满意<span class="count">2</span> </span>
+          <span class="block positive" @click="setSelectType(2)" :class="{active: selectType==2}"> 全部<span class="count">{{ratings.length}}</span> </span>
+          <span class="block positive" @click="setSelectType(0)" :class="{active: selectType==0}"> 满意<span class="count">{{positiveCount}}</span> </span>
+          <span class="block negative" @click="setSelectType(1)" :class="{active: selectType==1}"> 不满意<span class="count">{{ratings.length-positiveCount}}</span> </span>
         </div>
-        <div class="switch on">
+        <div class="switch " :class="{on: showTextFlag}" @click="triggerShowText">
         <span class="iconfont icon-check_circle"></span>
         <span class="text">只看有内容的评价</span>
         </div>
       </div>
       <div class="rating-wrapper">
         <ul>
-          <li class="rating-item">
+          <li class="rating-item" v-for="(rating, index) in filterRatings" :key="index">
             <div class="avatar">
-              <img width="28" height="28" src="http://static.galileo.xiaojukeji.com/static/tms/default_header.png">
+              <img width="28" height="28" :src="rating.avatar">
             </div> <div class="content">
-            <h1 class="name">aa</h1>
+            <h1 class="name">{{rating.username}}</h1>
             <div class="star-wrapper">
-              <Star :score="5" :size="24" />
-              <span class="delivery">30</span>
+              <Star :score="rating.score" :size="24" />
+              <span class="delivery">{{rating.deliveryTime}}</span>
             </div>
-            <p class="text">不错</p>
+            <p class="text">{{rating.text}}</p>
             <div class="recommend">
-              <span class="iconfont icon-thumb_up"></span>
-              <span class="item">南瓜粥</span>
-              <span class="item">皮蛋瘦肉粥</span>
-              <span class="item">扁豆焖面</span>
+              <span class="iconfont " :class="shopInfo.rateType==0?'icon-thumb_up':'icon-thumb_down'"></span>
+              <span class="item" v-for="(item, index) in rating.recommend" :key="index">{{item}}</span>
             </div>
-            <div class="time">2016-07-23 21:52:44</div>
+            <div class="time">{{rating.rateTime}}</div>
           </div>
-          </li>
-          <li class="rating-item">
-            <div class="avatar">
-              <img width="28" height="28" src="http://static.galileo.xiaojukeji.com/static/tms/default_header.png">
-            </div>
-            <div class="content">
-              <h1 class="name">aa</h1>
-              <div class="star-wrapper">
-                <Star :score="4" :size="24" />
-                <span class="delivery">30</span>
-              </div>
-              <p class="text">不错</p>
-              <div class="recommend">
-                <span class="iconfont icon-thumb_down"></span>
-              </div>
-              <div class="time">2016-07-23 21:52:44</div>
-            </div>
           </li>
         </ul>
       </div>
@@ -78,15 +59,45 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
+  import BScroll from 'better-scroll'
+  import {mapState, mapGetters} from 'vuex'
   import Star from '@/components/Star/Star'
     export default {
         name: "ShopRating",
+        data() {
+          return {
+            showTextFlag: false,  //是否只显示有文本内容的
+            selectType: 2         //选择的评价类型 0：满意1：不满意 2：全部
+          }
+        },
+        methods: {
+          setSelectType(selectType) {
+            this.selectType = selectType;
+          },
+          triggerShowText() {
+            this.showTextFlag = !this.showTextFlag;
+          }
+        },
         mounted () {
-          this.$store.dispatch('getShopRatings')
+          this.$store.dispatch('getShopRatings', () => {
+            this.$nextTick(() => {
+              new BScroll(this.$refs.ratings)
+            })
+          })
         },
         computed: {
-          ...mapState(['shopInfo','ratings'])
+          ...mapState(['shopInfo','ratings']),
+          ...mapGetters(['positiveCount']),
+          filterRatings() {//根据相关的数据过滤
+            const ratings = this.ratings;
+            const showTextFlag = this.showTextFlag;
+            const selectType = this.selectType;
+            return ratings.filter((rating) => {
+              const rateType = rating.rateType;
+              const text = rating.text;
+              return (selectType==2 || selectType==rateType) && (!showTextFlag || text.length>0);
+            });
+          }
         },
         components: {
           Star

@@ -11,7 +11,8 @@ import {
   REQ_UPDATE_FOODCOUNT,
   REQ_ADD_FOODCOUNT,
   REQ_REDUCE_FOODCOUNT,
-  REQ_CLEARCAR
+  REQ_CLEARCAR,
+  REQ_SEARCH_SHOPLIST
 } from './mutations-type'
 import {
   reqAddress,
@@ -21,7 +22,8 @@ import {
   reqLogout,
   reqShopInfo,
   reqShopRatings,
-  reqShopGoods
+  reqShopGoods,
+  reqSearchShop
 } from '../api'
 /**
  *传递来请求调用mutations的多个方法的对象
@@ -95,10 +97,12 @@ export default {
       commit(REQ_SHOP_INFO, {shopInfo: result.data})
     }
   },
-  async getShopRatings({commit}) {
+  async getShopRatings({commit}, callback) {
     const result = await reqShopRatings();
     if (result.code == 0) {
       commit(REQ_RATINGS, {ratings: result.data})
+
+      callback && callback()
     }
   },
   async getShopGoods({commit}, callback) {
@@ -120,6 +124,14 @@ export default {
   },
   clearCar({commit}) {
     commit(REQ_CLEARCAR)
+  },
+  async searchShopList({commit, state}, keyword) {
+    const result = await reqSearchShop(`${state.latitude},${state.longitude}`, keyword);
+    if (result.code == 0) {
+      const searchShopList = result.data;
+      commit(REQ_SEARCH_SHOPLIST, {searchShopList})
+    }
+
   }
 
 }

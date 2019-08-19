@@ -3,16 +3,20 @@
     <ShopHeader/>
     <div class="tab">
       <div class="tab-item">
-        <router-link to="/shop/shopGoods">点餐</router-link>
+        <router-link to="/shop/shopGoods" replace>点餐</router-link>
       </div>
       <div class="tab-item">
-        <router-link to="/shop/shopRating">评价</router-link>
+        <router-link to="/shop/shopRating" replace>评价</router-link>
       </div>
       <div class="tab-item">
-        <router-link to="/shop/shopInfo">商家</router-link>
+        <router-link to="/shop/shopInfo" replace>商家</router-link>
       </div>
     </div>
-    <router-view/>
+
+    <keep-alive><!-- 缓存路由组件。切换路由再切换回来，选择好或者输入好的数据不会消失 -->
+      <router-view/>
+    </keep-alive>
+
   </div>
 </template>
 

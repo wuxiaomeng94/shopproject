@@ -1,10 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 /*import HelloWorld from '@/components/HelloWorld'*/
-import Home from '@/pages/Home/Home'
+
+/*import Home from '@/pages/Home/Home'
 import Search from '@/pages/Search/Search'
 import Person from '@/pages/Person/Person'
-import Order from '@/pages/Order/Order'
+import Order from '@/pages/Order/Order'*/
+//这样写路由组件的引入，会在进入对应的路由页面的时候才去加载对应的组件
+const Home = () => import('@/pages/Home/Home');
+const Search = () => import('@/pages/Search/Search');
+const Person = () => import('@/pages/Person/Person');
+const Order = () => import('@/pages/Order/Order');
+
 import Login from '@/pages/Login/Login'
 import UserInfo from '@/pages/UserInfo/UserInfo'
 import Shop from '@/pages/Shop/Shop'
